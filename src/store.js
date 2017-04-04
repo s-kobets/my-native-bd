@@ -1,8 +1,8 @@
 import {createStore} from 'redux';
 
-const initialState = { counter: 0 };
+const initialState = { counter: '00:00:00.00' };
 
-function reducer(state = { counter: 0 }, action) {
+function reducer(state = { counter: '00:00:00.00' }, action) {
   switch (action.type) {
     case 'ADD':
       return { counter: state.counter += action.amount }
