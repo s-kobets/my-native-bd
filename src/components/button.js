@@ -13,7 +13,7 @@ class Button extends Component {
 		}
 
 		this.increment = this.increment.bind(this);
-		this.decrement = this.decrement.bind(this);
+		this.incrementData = this.incrementData.bind(this);
 		this.findTIME = this.findTIME.bind(this);
 		this.startTIME = this.startTIME.bind(this);
 		this.clearFields = this.clearFields.bind(this);
@@ -21,20 +21,19 @@ class Button extends Component {
 
 	increment(data) {
 		store.dispatch({
-			type: 'ADD',
+			type: 'AddCounter',
 			amount: data
 		});
 	}
 
-	decrement(data) {
+	incrementData(data) {
 		store.dispatch({
-			type: 'REMOVE',
+			type: 'AddData',
 			amount: data
 		});
 	}
 
 	startTIME() {
-		console.log('startTIME', this);
 		let t = new Date().getTime() - this.state.startDate;
 		let ms = t%1000;
 		t -= ms;
@@ -52,7 +51,7 @@ class Button extends Component {
 		if (s<10) s='0'+s;
 		if (ms<10) ms='0'+ms;
 		if (this.state.init === 1) {
-			this.props.store.counter = h + ':' + m + ':' + s + '.' + ms;
+			this.increment(`${h}:${m}:${s}.${ms}`);
 		}
 		this.setState({ clocktimer: setTimeout(this.startTIME, 10) });
 	}
@@ -69,10 +68,14 @@ class Button extends Component {
 			this.setState({ init: 1 });
 		}
 		 else {
+			const arr = [];
+			const date = {};
+			date.startDate = this.state.startDate;
 		// 	var str = trim(document.clockform.label.value);
 		// 	document.getElementById('marker').innerHTML = (str==''?'':str+': ') + 
 		// 	document.clockform.clock.value + '<br>' + document.getElementById('marker').innerHTML;
 			this.clearFields();
+			this.incrementData(arr.push(this.state.date));
 		}
 	}
 
