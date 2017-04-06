@@ -1,13 +1,16 @@
 import {createStore} from 'redux';
 
-const initialState = { counter: '00:00:00.00' };
+const initialState = { 
+	counter: '00:00:00.00',
+	data: []
+};
 
-function reducer(state = { counter: '00:00:00.00' }, action) {
+function reducer(state = initialState, action) {
   switch (action.type) {
     case 'AddCounter':
-      return { counter: state.counter = action.amount }
+      return { ...state, counter: action.amount }
     case 'AddData':
-      return { counter: state.data.concat(action.amount) }
+      return { ...state, data: state.data.concat(action.amount) }
     case 'REMOVE':
       return { counter: state.counter = action.amount }
     default:

@@ -7,7 +7,7 @@ class Button extends Component {
 		super(props);
 
 		this.state = {
-			startDate: 0,
+			dateBD: {},
 			init: 0,
 			clocktimer: {}
 		}
@@ -34,7 +34,7 @@ class Button extends Component {
 	}
 
 	startTIME() {
-		let t = new Date().getTime() - this.state.startDate;
+		let t = new Date().getTime() - this.state.dateBD.startDate;
 		let ms = t%1000;
 		t -= ms;
 		ms = Math.floor(ms/10);
@@ -63,19 +63,18 @@ class Button extends Component {
 
 	findTIME() {
 		if (this.state.init === 0) {
-			this.setState({ startDate: new Date().getTime() });
+			this.setState({ dateBD: { ...this.state.dateBD, startDate: new Date().getTime() }});
 			this.startTIME();
 			this.setState({ init: 1 });
 		}
 		 else {
-			const arr = [];
-			const date = {};
-			date.startDate = this.state.startDate;
+			let arr = [];
 		// 	var str = trim(document.clockform.label.value);
 		// 	document.getElementById('marker').innerHTML = (str==''?'':str+': ') + 
 		// 	document.clockform.clock.value + '<br>' + document.getElementById('marker').innerHTML;
 			this.clearFields();
-			this.incrementData(arr.push(this.state.date));
+			arr.push(this.state.dateBD)
+			this.incrementData(arr);
 		}
 	}
 
