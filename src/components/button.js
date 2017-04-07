@@ -7,6 +7,7 @@ class Button extends Component {
 		super(props);
 
 		this.state = {
+			arrDB: [],
 			dateBD: {},
 			init: 0,
 			clocktimer: {}
@@ -51,7 +52,10 @@ class Button extends Component {
 		if (s<10) s='0'+s;
 		if (ms<10) ms='0'+ms;
 		if (this.state.init === 1) {
-			this.increment(`${h}:${m}:${s}.${ms}`);
+			this.setState({ dateBD: { ...this.state.dateBD, time: `${h}:${m}:${s}.${ms}` }});
+			this.location();
+			this.increment(this.state.dateBD.time);
+			this.incrementData(this.state.dateBD);
 		}
 		this.setState({ clocktimer: setTimeout(this.startTIME, 10) });
 	}
@@ -68,13 +72,20 @@ class Button extends Component {
 			this.setState({ init: 1 });
 		}
 		 else {
-			let arr = [];
 		// 	var str = trim(document.clockform.label.value);
 		// 	document.getElementById('marker').innerHTML = (str==''?'':str+': ') + 
 		// 	document.clockform.clock.value + '<br>' + document.getElementById('marker').innerHTML;
 			this.clearFields();
-			arr.push(this.state.dateBD)
-			this.incrementData(arr);
+		}
+	}
+
+	location() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(position => {
+				// Текущие координаты.
+				this.setState({ dateBD: { ...this.state.dateBD, lat: position.coords.latitude }});
+				this.setState({ dateBD: { ...this.state.dateBD, log: position.coords.longitude }});
+			});
 		}
 	}
 

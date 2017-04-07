@@ -5,8 +5,10 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Button from './components/button.js';
 import Counter from './components/counter.js';
+import List from './components/list.js';
 
 class App extends Component {
+
 	render() {
 		return (
 			<Provider store={store}>
@@ -20,6 +22,7 @@ class App extends Component {
 
 					<Counter />
 					<Button />
+					<List />
 				</div>
 			</Provider>
 		);
