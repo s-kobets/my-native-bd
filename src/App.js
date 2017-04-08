@@ -8,6 +8,26 @@ import Counter from './components/counter.js';
 import List from './components/list.js';
 
 class App extends Component {
+	// componentDidMount() {
+	// 	console.log('app', dataRef);
+	// 	let dateBD = [];
+	// 	dataRef.on('value', snapshot => {
+	// 		snapshot.forEach(item => {
+	// 			if (item.val().lat) {
+	// 				dateBD.push({ 
+	// 					startDate: item.val().startDate,
+	// 					time: item.val().time,
+	// 					lat: item.val().lat,
+	// 					log: item.val().log
+	// 				});
+	// 				store.dispatch({
+	// 					type: 'AddData',
+	// 					amount: dateBD
+	// 				});
+	// 			}
+	// 		});
+	// 	});
+	// }
 
 	render() {
 		return (

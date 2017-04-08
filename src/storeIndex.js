@@ -1,37 +1,30 @@
-let StoreIndex;
-(function() {
-	let instance;
-	let objectStore;
-	console.log(instance, 'instance')
-	StoreIndex = function () {
-		if (instance) {
-			console.log(298374928374982349872);
-			return instance;
-		}
-		const idb = window.indexedDB;
-		if (!idb) {
-			console.log('IndexedDB not');
-		} else {
-			objectStore = idb.open('DB', 3);
-			instance = this.onsuccess();
-			console.log('obj', instance);
-			return instance;
-		}
-	}
+import * as firebase from 'firebase';
 
-	StoreIndex.prototype.onsuccess = () => {
-		objectStore.onsuccess = e => {
-			// Store values in the newly created objectStore.3
-			console.log('success', e.target.result);
-			return objectStore.result;
+const config = {
+	apiKey: 'AIzaSyCZ8pjhvX6snAzYVnvcUnpDLpq5bAuTWNU',
+	authDomain: 'native-bd.firebaseapp.com',
+	databaseURL: 'https://native-bd.firebaseio.com',
+	projectId: 'native-bd',
+	storageBucket: 'native-bd.appspot.com',
+	messagingSenderId: '85968346295'
+};
+
+firebase.initializeApp(config);
+
+// const rootRef = firebase.database().ref().child('native-bd');
+const dataRef = firebase.database().ref().child('dataState');
+let dateBD = [];
+
+dataRef.on('value', snapshot => {
+	snapshot.forEach(item => {
+		if (item.val().lat) {
+			dateBD.push({ 
+				startDate: item.val().startDate,
+				time: item.val().time,
+				lat: item.val().lat,
+				log: item.val().log
+			});
 		}
-	}
-
-	StoreIndex.prototype.onerror = (e) => {
-		objectStore.onerror = e => {
-			console.log('error', e.target);
-		};
-	}
-})();
-
-export default StoreIndex;
+	});
+})
+export {dataRef, dateBD}

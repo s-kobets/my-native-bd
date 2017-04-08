@@ -1,11 +1,11 @@
 import {createStore} from 'redux';
-import storeIndex from './storeIndex.js'
+import {dateBD, dataRef} from './storeIndex.js';
 
-console.log(storeIndex.objectStore);
+console.log('store', dateBD);
 
 const initialState = { 
 	counter: '00:00:00.00',
-	data: []
+	data: dateBD
 };
 
 function reducer(state = initialState, action) {
@@ -13,7 +13,9 @@ function reducer(state = initialState, action) {
 		case 'AddCounter':
 			return { ...state, counter: action.amount }
 		case 'AddData':
-			return { ...state, data: state.data.concat(action.amount) }
+			const arrNew = state.data.concat(action.amount);
+			dataRef.set(arrNew);
+			return { ...state, data: arrNew}
 		case 'REMOVE':
 			return { counter: state.counter = action.amount }
 		default:

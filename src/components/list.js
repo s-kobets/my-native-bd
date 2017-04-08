@@ -3,15 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class List extends Component {
-	constructor(props) {
-		super(props)
-		this.state = { 
-			data: []
-		}
-	}
-
 	render() {
 		const dataB = [];
+		console.log('dataB', dataB.length);
 		if (this.props.store.data.length > 0) {
 			let startDate = this.props.store.data[0].startDate;
 			let endIndex = 0;
@@ -34,7 +28,7 @@ class List extends Component {
 				}
 			});
 		}
-		console.log(dataB);
+
 		return (
 			<div>
 				<ul className='list'>
@@ -51,7 +45,6 @@ class List extends Component {
 	}
 
 	itemLi(item, index) {
-
 		return (
 			<li key={index} className='item'>
 				<span> { item.startDate } </span>
