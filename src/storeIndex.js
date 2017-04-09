@@ -12,19 +12,8 @@ const config = {
 firebase.initializeApp(config);
 
 // const rootRef = firebase.database().ref().child('native-bd');
-const dataRef = firebase.database().ref().child('dataState');
-let dateBD = [];
+const dataRef = new Promise((resolve, reject) => {
+	return resolve(firebase.database().ref().child('dataState'));
+});
 
-dataRef.on('value', snapshot => {
-	snapshot.forEach(item => {
-		if (item.val().lat) {
-			dateBD.push({ 
-				startDate: item.val().startDate,
-				time: item.val().time,
-				lat: item.val().lat,
-				log: item.val().log
-			});
-		}
-	});
-})
-export {dataRef, dateBD}
+export default dataRef;

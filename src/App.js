@@ -3,31 +3,33 @@ import logo from './logo.svg';
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './store';
+import dataRef from './storeIndex.js';
 import Button from './components/button.js';
 import Counter from './components/counter.js';
 import List from './components/list.js';
 
 class App extends Component {
-	// componentDidMount() {
-	// 	console.log('app', dataRef);
-	// 	let dateBD = [];
-	// 	dataRef.on('value', snapshot => {
-	// 		snapshot.forEach(item => {
-	// 			if (item.val().lat) {
-	// 				dateBD.push({ 
-	// 					startDate: item.val().startDate,
-	// 					time: item.val().time,
-	// 					lat: item.val().lat,
-	// 					log: item.val().log
-	// 				});
-	// 				store.dispatch({
-	// 					type: 'AddData',
-	// 					amount: dateBD
-	// 				});
-	// 			}
-	// 		});
-	// 	});
-	// }
+	componentDidMount() {
+		dataRef.then(result => {
+			result.on('value', snapshot => {
+				snapshot.forEach(item => {
+					if (item.val().lat) {
+						let itemObj = { 
+							startDate: item.val().startDate,
+							time: item.val().time,
+							lat: item.val().lat,
+							log: item.val().log
+						}
+						store.dispatch({
+							type: 'AddData',
+							amount: itemObj
+						});
+					}
+				});
+			});
+		});
+		console.log('AppcomponentDidMount')
+	}
 
 	render() {
 		return (

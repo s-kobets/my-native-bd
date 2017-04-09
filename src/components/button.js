@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
+import dataRef from '../storeIndex.js';
 
 class Button extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			arrDB: [],
 			dateBD: {},
 			init: 0,
 			clocktimer: {}
@@ -18,6 +18,7 @@ class Button extends Component {
 		this.findTIME = this.findTIME.bind(this);
 		this.startTIME = this.startTIME.bind(this);
 		this.clearFields = this.clearFields.bind(this);
+		this.removeData = this.removeData.bind(this);
 	}
 
 	increment(data) {
@@ -72,9 +73,10 @@ class Button extends Component {
 			this.setState({ init: 1 });
 		}
 		 else {
-		// 	var str = trim(document.clockform.label.value);
-		// 	document.getElementById('marker').innerHTML = (str==''?'':str+': ') + 
-		// 	document.clockform.clock.value + '<br>' + document.getElementById('marker').innerHTML;
+		 	console.log(this.props.store.data.length)
+			dataRef.then(result => {
+				result.set(this.props.store.data);
+			});
 			this.clearFields();
 		}
 	}
@@ -89,9 +91,18 @@ class Button extends Component {
 		}
 	}
 
+	removeData() {
+		dataRef.then(result => {
+			result.remove();
+		});
+	}
+
 	render() {
 		return (
-			<button className='btn-counter' onClick={this.findTIME}>Start / Stop</button>
+			<div>
+				<button className='btn-counter' onClick={this.findTIME}>Start / Stop</button>
+				<button className='btn-counter' onClick={this.removeData}>Remove Data</button>
+			</div>
 		);
 	}
 }

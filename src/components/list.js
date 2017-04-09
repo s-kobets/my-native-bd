@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 class List extends Component {
 	render() {
 		const dataB = [];
-		console.log('dataB', dataB.length);
+		// console.log(this.props.store.data.length);
 		if (this.props.store.data.length > 0) {
 			let startDate = this.props.store.data[0].startDate;
 			let endIndex = 0;
