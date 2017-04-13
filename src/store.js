@@ -1,8 +1,9 @@
 import {createStore} from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 // import dataRef from './storeIndex.js';
 
 const initialState = { 
-	counter: '00:00:00.00',
+	counter: '00:00:00',
 	data: []
 };
 
@@ -19,4 +20,4 @@ function reducer(state = initialState, action) {
 	}
 }
 
-export default createStore(reducer, initialState);
+export default createStore(reducer, composeWithDevTools());
