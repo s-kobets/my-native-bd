@@ -1,6 +1,11 @@
-import {createStore} from 'redux';
+import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+// import createSagaMiddleware from 'redux-saga';
+// import { fetchData } from './saga'
 // import dataRef from './storeIndex.js';
+
+// создаем saga мидлвар
+// const sagaMiddleware = createSagaMiddleware();
 
 const initialState = { 
 	counter: '00:00:00',
@@ -13,6 +18,8 @@ function reducer(state = initialState, action) {
 			return { ...state, counter: action.amount }
 		case 'AddData':
 			return { ...state, data: state.data.concat(action.amount) }
+		case 'FetchData':
+			return { ...state, data: state.data.concat(action.amount) }
 		case 'REMOVE':
 			return { counter: state.counter = action.amount }
 		default:
@@ -20,4 +27,9 @@ function reducer(state = initialState, action) {
 	}
 }
 
-export default createStore(reducer, composeWithDevTools());
+const store = createStore(reducer, composeWithDevTools());
+// , applyMiddleware(sagaMiddleware)
+// затем запускаем сагу
+// sagaMiddleware.run(fetchData);
+
+export default store;

@@ -51,9 +51,8 @@ class Button extends Component {
     }
     else {
       console.log(this.props.store.data.length)
-      dataRef.then(result => {
-        result.set(this.props.store.data);
-      });
+      /**/
+      this.setData();
       this.clearFields();
     }
   }
@@ -68,6 +67,12 @@ class Button extends Component {
       this.props.increment(this.state.dateBD.time);
       this.props.incrementData(this.state.dateBD);
     }
+  }
+
+  setData() {
+    dataRef.then(result => {
+      result.set(this.props.store.data);
+    });
   }
 
   removeData() {

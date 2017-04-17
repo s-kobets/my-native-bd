@@ -11,24 +11,26 @@ import List from './components/list.js';
 class App extends Component {
 	componentDidMount() {
 		dataRef.then(result => {
-			result.on('value', snapshot => {
+			let itemObj = {};
+			/* событие срабатывает единожды */
+			result.once('value', snapshot => {
 				snapshot.forEach(item => {
 					if (item.val().lat) {
-						let itemObj = { 
+						itemObj = {
+							...itemObj,
 							startDate: item.val().startDate,
 							time: item.val().time,
 							lat: item.val().lat,
 							log: item.val().log
 						}
 						store.dispatch({
-							type: 'AddData',
+							type: 'FetchData',
 							amount: itemObj
 						});
 					}
 				});
 			});
 		});
-		console.log('AppcomponentDidMount')
 	}
 
 	render() {
